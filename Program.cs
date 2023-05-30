@@ -50,6 +50,7 @@ void FindNumber (string message)
 
 void Task41 (string task)
 {
+    Console.WriteLine($"Решение задачи №{task}");
     string message = "Введите количество чисел M = ";
     FindNumber (message); 
 }
@@ -76,14 +77,19 @@ double [] equations (string message)
     Console.Write("b2 -> ");
     double b2 = Convert.ToDouble(Console.ReadLine());
     double [] dot = new double [2];
+    if (k1 == k2) Console.WriteLine("Заданные прямые параллельны!");
+    else
+    {
     dot [0] = Math.Round((b2 - b1)/(k1 - k2), 2);
     dot [1] = Math.Round(k1 * dot [0] + b1, 2);
+    Console.Write($"Точка пересечения двух прямых имеет координаты [{dot[0]}; {dot[1]}]");
+    }
     return (dot);
 }
 
 void Task43(string task)
 {
+    Console.WriteLine($"Решение задачи №{task}");
     string message = "Прямые заданы уравнениями y=k1*x+b1 и y=k2*x+b2. Введите: ";
-    double [] dot = equations(message);
-    Console.Write($"Точка пересечения двух прямых имеет координаты [{dot[0]}; {dot[1]}]");
+    double [] dot = equations(message);    
 }
