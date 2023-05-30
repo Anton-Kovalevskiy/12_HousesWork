@@ -23,41 +23,36 @@ switch (task)
 
 // Решение 41
 
-int [] FillArrayAndPrint (string message)
+void FindNumber (string message)
 {
     Console.Write(message);
-    string? arrayStr = Console.ReadLine();
-    string[] splitString = arrayStr.Split(' ');
-    int [] array = new int [splitString.Length];
-    int m = array.Length;
-    Console.Write($"Получен массив из {m} чисел: ");
-    for (int i = 0; i < array.Length; i++)
+    int M = Convert.ToInt32(Console.ReadLine());
+    Console.Write($"Введите {M} чисел через пробел: ");
+    string? arrayStr = Console.ReadLine();            // можно сразу: int [] array = Console.ReadLine().Split().Select(int.Parse).ToArray();
+    string [] splitString = arrayStr.Split(' ');
+    int [] array = new int [M];
+    int number = 0;
+    bool isNumber = true;
+    for (int i = 0; i < M; i++)
     {
-        int.TryParse(splitString[i], out array[i]);
-        Console.Write($"[{array[i]}] ");
+        isNumber = int.TryParse(splitString[i], out array[i]);
+        if (isNumber == false)
+        {
+        break;    
+        }
+        if (array[i] > 0) number++;
     }
-    Console.WriteLine();
-    return (array);
+    if (splitString.Length != M) Console.Write("Введено неверное количество чисел!");
+    else if (isNumber == false)  Console.Write("Один из введенных элементов не является числом!");
+    else Console.WriteLine($"Количество введенных чисел больше нуля {number}.");
 }
 
-int FindNumberOfPositive (int [] array)
-{
-    int n = 0;
-    for (int i = 0; i < array.Length; i++)
-    {
-        if (array[i] > 0) n++; 
-    }
-    return (n);
-}
 
 void Task41 (string task)
 {
-string message = "Введите числа массива через пробел: ";
-int [] array = FillArrayAndPrint(message);
-int number = FindNumberOfPositive(array);
-Console.Write($"Количество чисел больше нуля равно {number}");
+    string message = "Введите количество чисел M = ";
+    FindNumber (message); 
 }
-
 
 /*Задача 43: 
 Напишите программу, которая найдёт точку пересечения двух прямых, 
@@ -69,13 +64,26 @@ b1 = 2, k1 = 5, b2 = 4, k2 = 9 -> (-0,5; -0,5)
 
 // Решение 43
 
+double [] equations (string message)
+{
+    Console.WriteLine(message);
+    Console.Write("k1 -> ");
+    double k1 = Convert.ToDouble(Console.ReadLine());
+    Console.Write("b1 -> ");
+    double b1 = Convert.ToDouble(Console.ReadLine());
+    Console.Write("k2 -> ");
+    double k2 = Convert.ToDouble(Console.ReadLine());
+    Console.Write("b2 -> ");
+    double b2 = Convert.ToDouble(Console.ReadLine());
+    double [] dot = new double [2];
+    dot [0] = Math.Round((b2 - b1)/(k1 - k2), 2);
+    dot [1] = Math.Round(k1 * dot [0] + b1, 2);
+    return (dot);
+}
 
 void Task43(string task)
 {
-    
+    string message = "Прямые заданы уравнениями y=k1*x+b1 и y=k2*x+b2. Введите: ";
+    double [] dot = equations(message);
+    Console.Write($"Точка пересечения двух прямых имеет координаты [{dot[0]}; {dot[1]}]");
 }
-
-//int[] array = new int[3];
-//Console.Write("Enter the matrix in one line: ");
-//int[] numbers = Console.ReadLine().Split(' ').Select(int.Parse).ToArray();
-
